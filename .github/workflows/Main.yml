@@ -29,8 +29,8 @@ jobs:
       - name: Download Lilu / VirtualSMC SDK (script from hieplpvip/AsusSMC (Acidanthera/Lilu))
         run: src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/hieplpvip/AsusSMC/master/Scripts/bootstrap.sh) && eval "$src" || exit 1
 
-      - run: xcodebuild -jobs 1 -configuration Debug -arch x86_64
-      - run: xcodebuild -jobs 1 -configuration Release -arch x86_64
+      - run: xcodebuild -jobs 1 -configuration Debug
+      - run: xcodebuild -jobs 1 -configuration Release
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
