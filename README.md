@@ -1,3 +1,3 @@
 # SMCProcessorAMD
 
-lilu plugin for AMD CPU temperature
+VirtualSMC plugin for AMD CPU temperature
