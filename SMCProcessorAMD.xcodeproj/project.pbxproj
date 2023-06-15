@@ -19,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A310A3942A3B4A4A00810784 /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
+		A310A3952A3B4A8900810784 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B564A5C9240B8256000FF929 /* LegacyIOUserClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyIOUserClient.h; sourceTree = "<group>"; };
 		B57D27F423F66AE7002BC699 /* SMCProcessorAMD.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCProcessorAMD.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57D27FB23F66AE7002BC699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +56,8 @@
 		B57D27EA23F66AE7002BC699 = {
 			isa = PBXGroup;
 			children = (
+				A310A3942A3B4A4A00810784 /* Changelog.md */,
+				A310A3952A3B4A8900810784 /* README.md */,
 				B57D27F623F66AE7002BC699 /* SMCProcessorAMD */,
 				B57D27F523F66AE7002BC699 /* Products */,
 			);
