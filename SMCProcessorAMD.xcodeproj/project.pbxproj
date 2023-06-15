@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		774A25C32A3B512F00B07730 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 774A25C22A3B512F00B07730 /* libkmod.a */; };
+		774A25DC2A3B525000B07730 /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 774A25DB2A3B525000B07730 /* plugin_start.cpp */; };
 		B564A5CA240B8256000FF929 /* LegacyIOUserClient.h in Headers */ = {isa = PBXBuildFile; fileRef = B564A5C9240B8256000FF929 /* LegacyIOUserClient.h */; };
 		B57D280723F66C8E002BC699 /* SMCProcessorAMD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57D280123F66C8E002BC699 /* SMCProcessorAMD.cpp */; };
 		B57D280823F66C8E002BC699 /* Keyimplementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57D280223F66C8E002BC699 /* Keyimplementations.cpp */; };
@@ -19,6 +21,29 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		774A25C22A3B512F00B07730 /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkmod.a; path = ./MacKernelSDK/Library/x86_64/libkmod.a; sourceTree = "<group>"; };
+		774A25C52A3B522100B07730 /* kern_api.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_api.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_api.hpp; sourceTree = SOURCE_ROOT; };
+		774A25C62A3B523100B07730 /* kern_crypto.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_crypto.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_crypto.hpp; sourceTree = SOURCE_ROOT; };
+		774A25C72A3B523100B07730 /* kern_version.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_version.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_version.hpp; sourceTree = SOURCE_ROOT; };
+		774A25C82A3B523100B07730 /* kern_devinfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_devinfo.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_devinfo.hpp; sourceTree = SOURCE_ROOT; };
+		774A25C92A3B523100B07730 /* plugin_start.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = plugin_start.hpp; path = Lilu.kext/Contents/Resources/Headers/plugin_start.hpp; sourceTree = SOURCE_ROOT; };
+		774A25CA2A3B523100B07730 /* kern_mach.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_mach.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_mach.hpp; sourceTree = SOURCE_ROOT; };
+		774A25CB2A3B523200B07730 /* kern_policy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_policy.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_policy.hpp; sourceTree = SOURCE_ROOT; };
+		774A25CC2A3B523200B07730 /* kern_compat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_compat.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_compat.hpp; sourceTree = SOURCE_ROOT; };
+		774A25CD2A3B523200B07730 /* kern_cpu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_cpu.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_cpu.hpp; sourceTree = SOURCE_ROOT; };
+		774A25CE2A3B523200B07730 /* kern_patcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_patcher.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_patcher.hpp; sourceTree = SOURCE_ROOT; };
+		774A25CF2A3B523200B07730 /* kern_rtc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_rtc.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_rtc.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D02A3B523200B07730 /* kern_nvram.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_nvram.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_nvram.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D12A3B523200B07730 /* kern_user.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_user.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_user.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D22A3B523200B07730 /* kern_disasm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_disasm.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_disasm.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D32A3B523200B07730 /* kern_compression.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_compression.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_compression.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D42A3B523200B07730 /* kern_util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_util.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_util.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D52A3B523200B07730 /* kern_file.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_file.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_file.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D62A3B523200B07730 /* kern_time.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_time.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_time.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D72A3B523200B07730 /* kern_config.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_config.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_config.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D82A3B523200B07730 /* kern_iokit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_iokit.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_iokit.hpp; sourceTree = SOURCE_ROOT; };
+		774A25D92A3B523200B07730 /* kern_efi.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = kern_efi.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_efi.hpp; sourceTree = SOURCE_ROOT; };
+		774A25DB2A3B525000B07730 /* plugin_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = plugin_start.cpp; path = Lilu.kext/Contents/Resources/Library/plugin_start.cpp; sourceTree = "<group>"; };
 		A310A3942A3B4A4A00810784 /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
 		A310A3952A3B4A8900810784 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B564A5C9240B8256000FF929 /* LegacyIOUserClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyIOUserClient.h; sourceTree = "<group>"; };
@@ -39,12 +64,75 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				774A25C32A3B512F00B07730 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		774A25BF2A3B505D00B07730 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				774A25C42A3B51D400B07730 /* Headers */,
+				774A25DA2A3B523B00B07730 /* Library */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		774A25C02A3B506C00B07730 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				774A25C22A3B512F00B07730 /* libkmod.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		774A25C12A3B50FA00B07730 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				A310A3952A3B4A8900810784 /* README.md */,
+				A310A3942A3B4A4A00810784 /* Changelog.md */,
+			);
+			name = Docs;
+			sourceTree = "<group>";
+		};
+		774A25C42A3B51D400B07730 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				774A25CC2A3B523200B07730 /* kern_compat.hpp */,
+				774A25D32A3B523200B07730 /* kern_compression.hpp */,
+				774A25D72A3B523200B07730 /* kern_config.hpp */,
+				774A25CD2A3B523200B07730 /* kern_cpu.hpp */,
+				774A25C62A3B523100B07730 /* kern_crypto.hpp */,
+				774A25C82A3B523100B07730 /* kern_devinfo.hpp */,
+				774A25D22A3B523200B07730 /* kern_disasm.hpp */,
+				774A25D92A3B523200B07730 /* kern_efi.hpp */,
+				774A25D52A3B523200B07730 /* kern_file.hpp */,
+				774A25D82A3B523200B07730 /* kern_iokit.hpp */,
+				774A25CA2A3B523100B07730 /* kern_mach.hpp */,
+				774A25D02A3B523200B07730 /* kern_nvram.hpp */,
+				774A25CE2A3B523200B07730 /* kern_patcher.hpp */,
+				774A25CB2A3B523200B07730 /* kern_policy.hpp */,
+				774A25CF2A3B523200B07730 /* kern_rtc.hpp */,
+				774A25D62A3B523200B07730 /* kern_time.hpp */,
+				774A25D12A3B523200B07730 /* kern_user.hpp */,
+				774A25D42A3B523200B07730 /* kern_util.hpp */,
+				774A25C72A3B523100B07730 /* kern_version.hpp */,
+				774A25C92A3B523100B07730 /* plugin_start.hpp */,
+				774A25C52A3B522100B07730 /* kern_api.hpp */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		774A25DA2A3B523B00B07730 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				774A25DB2A3B525000B07730 /* plugin_start.cpp */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
 		B55E654B240B842400376E9E /* LegacyHeaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -56,9 +144,10 @@
 		B57D27EA23F66AE7002BC699 = {
 			isa = PBXGroup;
 			children = (
-				A310A3942A3B4A4A00810784 /* Changelog.md */,
-				A310A3952A3B4A8900810784 /* README.md */,
+				774A25C12A3B50FA00B07730 /* Docs */,
+				774A25BF2A3B505D00B07730 /* SDK */,
 				B57D27F623F66AE7002BC699 /* SMCProcessorAMD */,
+				774A25C02A3B506C00B07730 /* Frameworks */,
 				B57D27F523F66AE7002BC699 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -181,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5D20189241B85E800BBD06A /* kernel_resolver.c in Sources */,
+				774A25DC2A3B525000B07730 /* plugin_start.cpp in Sources */,
 				B57D280B23F66C8E002BC699 /* SMCProcessorAMDUserClient.cpp in Sources */,
 				B57D280723F66C8E002BC699 /* SMCProcessorAMD.cpp in Sources */,
 				B57D280823F66C8E002BC699 /* Keyimplementations.cpp in Sources */,
@@ -316,7 +406,10 @@
 					"${PROJECT_DIR}/VirtualSMC.kext/Contents/Resources",
 				);
 				INFOPLIST_FILE = SMCProcessorAMD/Info.plist;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.0;
 				MODULE_NAME = com.Lorys89.SMCProcessorAMD;
@@ -358,7 +451,10 @@
 					"${PROJECT_DIR}/VirtualSMC.kext/Contents/Resources",
 				);
 				INFOPLIST_FILE = SMCProcessorAMD/Info.plist;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.0;
 				MODULE_NAME = com.Lorys89.SMCProcessorAMD;
