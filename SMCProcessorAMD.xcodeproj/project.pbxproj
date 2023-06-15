@@ -449,7 +449,11 @@
 				);
 				INFOPLIST_FILE = SMCProcessorAMD/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
@@ -494,7 +498,11 @@
 				);
 				INFOPLIST_FILE = SMCProcessorAMD/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
