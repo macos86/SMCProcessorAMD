@@ -9,6 +9,27 @@
 /* Begin PBXBuildFile section */
 		774A25C32A3B512F00B07730 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 774A25C22A3B512F00B07730 /* libkmod.a */; };
 		774A25DC2A3B525000B07730 /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 774A25DB2A3B525000B07730 /* plugin_start.cpp */; };
+		774A25F32A3B534900B07730 /* kern_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25DE2A3B534800B07730 /* kern_api.hpp */; };
+		774A25F42A3B534900B07730 /* kern_disasm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25DF2A3B534800B07730 /* kern_disasm.hpp */; };
+		774A25F52A3B534900B07730 /* kern_patcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E02A3B534800B07730 /* kern_patcher.hpp */; };
+		774A25F62A3B534900B07730 /* kern_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E12A3B534900B07730 /* kern_policy.hpp */; };
+		774A25F72A3B534900B07730 /* kern_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E22A3B534900B07730 /* kern_file.hpp */; };
+		774A25F82A3B534900B07730 /* kern_time.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E32A3B534900B07730 /* kern_time.hpp */; };
+		774A25F92A3B534900B07730 /* kern_user.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E42A3B534900B07730 /* kern_user.hpp */; };
+		774A25FA2A3B534900B07730 /* kern_version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E52A3B534900B07730 /* kern_version.hpp */; };
+		774A25FB2A3B534900B07730 /* kern_devinfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E62A3B534900B07730 /* kern_devinfo.hpp */; };
+		774A25FC2A3B534900B07730 /* kern_util.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E72A3B534900B07730 /* kern_util.hpp */; };
+		774A25FD2A3B534900B07730 /* kern_efi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E82A3B534900B07730 /* kern_efi.hpp */; };
+		774A25FE2A3B534900B07730 /* kern_compression.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E92A3B534900B07730 /* kern_compression.hpp */; };
+		774A25FF2A3B534900B07730 /* kern_mach.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25EA2A3B534900B07730 /* kern_mach.hpp */; };
+		774A26002A3B534900B07730 /* kern_crypto.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25EB2A3B534900B07730 /* kern_crypto.hpp */; };
+		774A26012A3B534900B07730 /* kern_iokit.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25EC2A3B534900B07730 /* kern_iokit.hpp */; };
+		774A26022A3B534900B07730 /* plugin_start.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25ED2A3B534900B07730 /* plugin_start.hpp */; };
+		774A26032A3B534900B07730 /* kern_cpu.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25EE2A3B534900B07730 /* kern_cpu.hpp */; };
+		774A26042A3B534900B07730 /* kern_rtc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25EF2A3B534900B07730 /* kern_rtc.hpp */; };
+		774A26052A3B534900B07730 /* kern_config.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25F02A3B534900B07730 /* kern_config.hpp */; };
+		774A26062A3B534900B07730 /* kern_nvram.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25F12A3B534900B07730 /* kern_nvram.hpp */; };
+		774A26072A3B534900B07730 /* kern_compat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25F22A3B534900B07730 /* kern_compat.hpp */; };
 		B564A5CA240B8256000FF929 /* LegacyIOUserClient.h in Headers */ = {isa = PBXBuildFile; fileRef = B564A5C9240B8256000FF929 /* LegacyIOUserClient.h */; };
 		B57D280723F66C8E002BC699 /* SMCProcessorAMD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57D280123F66C8E002BC699 /* SMCProcessorAMD.cpp */; };
 		B57D280823F66C8E002BC699 /* Keyimplementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57D280223F66C8E002BC699 /* Keyimplementations.cpp */; };
@@ -22,28 +43,28 @@
 
 /* Begin PBXFileReference section */
 		774A25C22A3B512F00B07730 /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkmod.a; path = ./MacKernelSDK/Library/x86_64/libkmod.a; sourceTree = "<group>"; };
-		774A25C52A3B522100B07730 /* kern_api.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_api.hpp; sourceTree = SOURCE_ROOT; };
-		774A25C62A3B523100B07730 /* kern_crypto.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_crypto.hpp; sourceTree = SOURCE_ROOT; };
-		774A25C72A3B523100B07730 /* kern_version.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_version.hpp; sourceTree = SOURCE_ROOT; };
-		774A25C82A3B523100B07730 /* kern_devinfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_devinfo.hpp; sourceTree = SOURCE_ROOT; };
-		774A25C92A3B523100B07730 /* plugin_start.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = plugin_start.hpp; sourceTree = SOURCE_ROOT; };
-		774A25CA2A3B523100B07730 /* kern_mach.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_mach.hpp; sourceTree = SOURCE_ROOT; };
-		774A25CB2A3B523200B07730 /* kern_policy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_policy.hpp; sourceTree = SOURCE_ROOT; };
-		774A25CC2A3B523200B07730 /* kern_compat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_compat.hpp; sourceTree = SOURCE_ROOT; };
-		774A25CD2A3B523200B07730 /* kern_cpu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_cpu.hpp; sourceTree = SOURCE_ROOT; };
-		774A25CE2A3B523200B07730 /* kern_patcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_patcher.hpp; sourceTree = SOURCE_ROOT; };
-		774A25CF2A3B523200B07730 /* kern_rtc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_rtc.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D02A3B523200B07730 /* kern_nvram.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_nvram.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D12A3B523200B07730 /* kern_user.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_user.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D22A3B523200B07730 /* kern_disasm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_disasm.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D32A3B523200B07730 /* kern_compression.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_compression.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D42A3B523200B07730 /* kern_util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_util.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D52A3B523200B07730 /* kern_file.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_file.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D62A3B523200B07730 /* kern_time.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_time.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D72A3B523200B07730 /* kern_config.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_config.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D82A3B523200B07730 /* kern_iokit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_iokit.hpp; sourceTree = SOURCE_ROOT; };
-		774A25D92A3B523200B07730 /* kern_efi.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_efi.hpp; sourceTree = SOURCE_ROOT; };
 		774A25DB2A3B525000B07730 /* plugin_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = plugin_start.cpp; path = Lilu.kext/Contents/Resources/Library/plugin_start.cpp; sourceTree = "<group>"; };
+		774A25DE2A3B534800B07730 /* kern_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_api.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_api.hpp; sourceTree = "<group>"; };
+		774A25DF2A3B534800B07730 /* kern_disasm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_disasm.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_disasm.hpp; sourceTree = "<group>"; };
+		774A25E02A3B534800B07730 /* kern_patcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_patcher.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_patcher.hpp; sourceTree = "<group>"; };
+		774A25E12A3B534900B07730 /* kern_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_policy.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_policy.hpp; sourceTree = "<group>"; };
+		774A25E22A3B534900B07730 /* kern_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_file.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_file.hpp; sourceTree = "<group>"; };
+		774A25E32A3B534900B07730 /* kern_time.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_time.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_time.hpp; sourceTree = "<group>"; };
+		774A25E42A3B534900B07730 /* kern_user.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_user.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_user.hpp; sourceTree = "<group>"; };
+		774A25E52A3B534900B07730 /* kern_version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_version.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_version.hpp; sourceTree = "<group>"; };
+		774A25E62A3B534900B07730 /* kern_devinfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_devinfo.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_devinfo.hpp; sourceTree = "<group>"; };
+		774A25E72A3B534900B07730 /* kern_util.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_util.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_util.hpp; sourceTree = "<group>"; };
+		774A25E82A3B534900B07730 /* kern_efi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_efi.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_efi.hpp; sourceTree = "<group>"; };
+		774A25E92A3B534900B07730 /* kern_compression.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_compression.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_compression.hpp; sourceTree = "<group>"; };
+		774A25EA2A3B534900B07730 /* kern_mach.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_mach.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_mach.hpp; sourceTree = "<group>"; };
+		774A25EB2A3B534900B07730 /* kern_crypto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_crypto.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_crypto.hpp; sourceTree = "<group>"; };
+		774A25EC2A3B534900B07730 /* kern_iokit.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_iokit.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_iokit.hpp; sourceTree = "<group>"; };
+		774A25ED2A3B534900B07730 /* plugin_start.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = plugin_start.hpp; path = Lilu.kext/Contents/Resources/Headers/plugin_start.hpp; sourceTree = "<group>"; };
+		774A25EE2A3B534900B07730 /* kern_cpu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_cpu.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_cpu.hpp; sourceTree = "<group>"; };
+		774A25EF2A3B534900B07730 /* kern_rtc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_rtc.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_rtc.hpp; sourceTree = "<group>"; };
+		774A25F02A3B534900B07730 /* kern_config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_config.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_config.hpp; sourceTree = "<group>"; };
+		774A25F12A3B534900B07730 /* kern_nvram.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_nvram.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_nvram.hpp; sourceTree = "<group>"; };
+		774A25F22A3B534900B07730 /* kern_compat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kern_compat.hpp; path = Lilu.kext/Contents/Resources/Headers/kern_compat.hpp; sourceTree = "<group>"; };
 		A310A3942A3B4A4A00810784 /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
 		A310A3952A3B4A8900810784 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B564A5C9240B8256000FF929 /* LegacyIOUserClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyIOUserClient.h; sourceTree = "<group>"; };
@@ -108,27 +129,27 @@
 		774A25DD2A3B52AC00B07730 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				774A25CC2A3B523200B07730 /* kern_compat.hpp */,
-				774A25D32A3B523200B07730 /* kern_compression.hpp */,
-				774A25D72A3B523200B07730 /* kern_config.hpp */,
-				774A25CD2A3B523200B07730 /* kern_cpu.hpp */,
-				774A25C62A3B523100B07730 /* kern_crypto.hpp */,
-				774A25C82A3B523100B07730 /* kern_devinfo.hpp */,
-				774A25D22A3B523200B07730 /* kern_disasm.hpp */,
-				774A25D92A3B523200B07730 /* kern_efi.hpp */,
-				774A25D52A3B523200B07730 /* kern_file.hpp */,
-				774A25D82A3B523200B07730 /* kern_iokit.hpp */,
-				774A25CA2A3B523100B07730 /* kern_mach.hpp */,
-				774A25D02A3B523200B07730 /* kern_nvram.hpp */,
-				774A25CE2A3B523200B07730 /* kern_patcher.hpp */,
-				774A25CB2A3B523200B07730 /* kern_policy.hpp */,
-				774A25CF2A3B523200B07730 /* kern_rtc.hpp */,
-				774A25D62A3B523200B07730 /* kern_time.hpp */,
-				774A25D12A3B523200B07730 /* kern_user.hpp */,
-				774A25D42A3B523200B07730 /* kern_util.hpp */,
-				774A25C72A3B523100B07730 /* kern_version.hpp */,
-				774A25C92A3B523100B07730 /* plugin_start.hpp */,
-				774A25C52A3B522100B07730 /* kern_api.hpp */,
+				774A25DE2A3B534800B07730 /* kern_api.hpp */,
+				774A25F22A3B534900B07730 /* kern_compat.hpp */,
+				774A25E92A3B534900B07730 /* kern_compression.hpp */,
+				774A25F02A3B534900B07730 /* kern_config.hpp */,
+				774A25EE2A3B534900B07730 /* kern_cpu.hpp */,
+				774A25EB2A3B534900B07730 /* kern_crypto.hpp */,
+				774A25E62A3B534900B07730 /* kern_devinfo.hpp */,
+				774A25DF2A3B534800B07730 /* kern_disasm.hpp */,
+				774A25E82A3B534900B07730 /* kern_efi.hpp */,
+				774A25E22A3B534900B07730 /* kern_file.hpp */,
+				774A25EC2A3B534900B07730 /* kern_iokit.hpp */,
+				774A25EA2A3B534900B07730 /* kern_mach.hpp */,
+				774A25F12A3B534900B07730 /* kern_nvram.hpp */,
+				774A25E02A3B534800B07730 /* kern_patcher.hpp */,
+				774A25E12A3B534900B07730 /* kern_policy.hpp */,
+				774A25EF2A3B534900B07730 /* kern_rtc.hpp */,
+				774A25E32A3B534900B07730 /* kern_time.hpp */,
+				774A25E42A3B534900B07730 /* kern_user.hpp */,
+				774A25E72A3B534900B07730 /* kern_util.hpp */,
+				774A25E52A3B534900B07730 /* kern_version.hpp */,
+				774A25ED2A3B534900B07730 /* plugin_start.hpp */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -192,11 +213,32 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				774A25F42A3B534900B07730 /* kern_disasm.hpp in Headers */,
+				774A25F92A3B534900B07730 /* kern_user.hpp in Headers */,
+				774A26052A3B534900B07730 /* kern_config.hpp in Headers */,
 				B5D20188241B85E800BBD06A /* kernel_resolver.h in Headers */,
+				774A26072A3B534900B07730 /* kern_compat.hpp in Headers */,
+				774A25F32A3B534900B07730 /* kern_api.hpp in Headers */,
 				B57D280C23F66C8E002BC699 /* SMCProcessorAMDUserClient.hpp in Headers */,
+				774A25FD2A3B534900B07730 /* kern_efi.hpp in Headers */,
+				774A26022A3B534900B07730 /* plugin_start.hpp in Headers */,
+				774A25FE2A3B534900B07730 /* kern_compression.hpp in Headers */,
+				774A26062A3B534900B07730 /* kern_nvram.hpp in Headers */,
+				774A25FA2A3B534900B07730 /* kern_version.hpp in Headers */,
+				774A26032A3B534900B07730 /* kern_cpu.hpp in Headers */,
+				774A26042A3B534900B07730 /* kern_rtc.hpp in Headers */,
+				774A25FB2A3B534900B07730 /* kern_devinfo.hpp in Headers */,
+				774A25F62A3B534900B07730 /* kern_policy.hpp in Headers */,
+				774A25F52A3B534900B07730 /* kern_patcher.hpp in Headers */,
+				774A25FF2A3B534900B07730 /* kern_mach.hpp in Headers */,
+				774A26002A3B534900B07730 /* kern_crypto.hpp in Headers */,
+				774A25F72A3B534900B07730 /* kern_file.hpp in Headers */,
+				774A25FC2A3B534900B07730 /* kern_util.hpp in Headers */,
 				B57D280A23F66C8E002BC699 /* KeyImplementations.hpp in Headers */,
 				B564A5CA240B8256000FF929 /* LegacyIOUserClient.h in Headers */,
 				B57D280923F66C8E002BC699 /* SMCProcessorAMD.hpp in Headers */,
+				774A25F82A3B534900B07730 /* kern_time.hpp in Headers */,
+				774A26012A3B534900B07730 /* kern_iokit.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
