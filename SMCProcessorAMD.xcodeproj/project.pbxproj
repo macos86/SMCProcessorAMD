@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		774A25C32A3B512F00B07730 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 774A25C22A3B512F00B07730 /* libkmod.a */; };
-		774A25DC2A3B525000B07730 /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 774A25DB2A3B525000B07730 /* plugin_start.cpp */; };
 		774A25F32A3B534900B07730 /* kern_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25DE2A3B534800B07730 /* kern_api.hpp */; };
 		774A25F42A3B534900B07730 /* kern_disasm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25DF2A3B534800B07730 /* kern_disasm.hpp */; };
 		774A25F52A3B534900B07730 /* kern_patcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 774A25E02A3B534800B07730 /* kern_patcher.hpp */; };
@@ -312,7 +311,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5D20189241B85E800BBD06A /* kernel_resolver.c in Sources */,
-				774A25DC2A3B525000B07730 /* plugin_start.cpp in Sources */,
 				B57D280B23F66C8E002BC699 /* SMCProcessorAMDUserClient.cpp in Sources */,
 				B57D280723F66C8E002BC699 /* SMCProcessorAMD.cpp in Sources */,
 				B57D280823F66C8E002BC699 /* Keyimplementations.cpp in Sources */,
@@ -372,8 +370,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-                KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
-                KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -426,8 +424,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-                KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
-                KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -460,7 +458,7 @@
 					"${PROJECT_DIR}",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0;
 				MODULE_NAME = com.Lorys89.SMCProcessorAMD;
 				MODULE_VERSION = "$(CURRENT_PROJECT_VERSION)";
@@ -509,7 +507,7 @@
 					"${PROJECT_DIR}",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0;
 				MODULE_NAME = com.Lorys89.SMCProcessorAMD;
 				MODULE_VERSION = "$(CURRENT_PROJECT_VERSION)";

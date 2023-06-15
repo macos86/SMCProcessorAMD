@@ -9,8 +9,7 @@
 #ifndef SMCProcessorAMDUserClient_hpp
 #define SMCProcessorAMDUserClient_hpp
 
-//Support for macOS 10.13
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 #include "LegacyHeaders/LegacyIOUserClient.h"
 
 #include <sys/proc.h>

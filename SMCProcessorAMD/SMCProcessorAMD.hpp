@@ -1,8 +1,7 @@
 #ifndef SMCProcessorAMD_h
 #define SMCProcessorAMD_h
 
-//Support for macOS 10.13
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 
 //#include <IOKit/IOService.h>
 //#include <IOKit/IOLib.h>
