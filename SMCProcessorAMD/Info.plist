@@ -20,7 +20,7 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>IOKitPersonalities</key>
 	<dict>
-		<key>com.lorys89.SMCProcessorAMD</key>
+		<key>com.Lorys89.SMCProcessorAMD</key>
 		<dict>
 			<key>CFBundleIdentifier</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
@@ -40,7 +40,7 @@
 			<key>IOResourceMatch</key>
 			<string>ACPI</string>
 			<key>IOUserClientClass</key>
-			<string>SMCAMDProcessorUserClient</string>
+			<string>SMCProcessorAMDUserClient</string>
 		</dict>
 	</dict>
 	<key>NSHumanReadableCopyright</key>

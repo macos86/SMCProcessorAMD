@@ -1,7 +1,7 @@
 #include "SMCProcessorAMD.hpp"
 #include <string.h>
 
-OSDefineMetaClassAndStructors(SMCAMDProcessor, IOService);
+OSDefineMetaClassAndStructors(SMCProcessorAMD, IOService);
 
 #define TCTL_OFFSET_TABLE_LEN 6
 static constexpr const struct tctl_offset tctl_offset_table[] = {
@@ -16,7 +16,7 @@ static constexpr const struct tctl_offset tctl_offset_table[] = {
 bool ADDPR(debugEnabled) = false;
 uint32_t ADDPR(debugPrintDelay) = 0;
 
-bool SMCAMDProcessor::init(OSDictionary *dictionary){
+bool SMCProcessorAMD::init(OSDictionary *dictionary){
 //    strcpy((char*)kMODULE_VERSION, xStringify(MODULE_VERSION), (uint32_t)strlen(xStringify(MODULE_VERSION)));
     IOLog("AMDCPUSupport v%s, init\n", xStringify(MODULE_VERSION));
     
@@ -24,11 +24,11 @@ bool SMCAMDProcessor::init(OSDictionary *dictionary){
     return IOService::init(dictionary);
 }
 
-void SMCAMDProcessor::free(){
+void SMCProcessorAMD::free(){
     IOService::free();
 }
 
-bool SMCAMDProcessor::setupKeysVsmc(){
+bool SMCProcessorAMD::setupKeysVsmc(){
     
     vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
     
@@ -76,10 +76,10 @@ bool SMCAMDProcessor::setupKeysVsmc(){
     return suc;
 }
 
-bool SMCAMDProcessor::vsmcNotificationHandler(void *sensors, void *refCon, IOService *vsmc, IONotifier *notifier) {
+bool SMCProcessorAMD::vsmcNotificationHandler(void *sensors, void *refCon, IOService *vsmc, IONotifier *notifier) {
     if (sensors && vsmc) {
         IOLog("AMDCPUSupport: got vsmc notification\n");
-        auto &plugin = static_cast<SMCAMDProcessor *>(sensors)->vsmcPlugin;
+        auto &plugin = static_cast<SMCProcessorAMD *>(sensors)->vsmcPlugin;
         auto ret = vsmc->callPlatformFunction(VirtualSMCAPI::SubmitPlugin, true, sensors, &plugin, nullptr, nullptr);
         if (ret == kIOReturnSuccess) {
             IOLog("AMDCPUSupport: submitted plugin\n");
@@ -96,7 +96,7 @@ bool SMCAMDProcessor::vsmcNotificationHandler(void *sensors, void *refCon, IOSer
 }
 
 
-bool SMCAMDProcessor::getPCIService(){
+bool SMCProcessorAMD::getPCIService(){
     
     
     OSDictionary *matching_dict = serviceMatching("IOPCIDevice");
@@ -136,7 +136,7 @@ bool SMCAMDProcessor::getPCIService(){
 }
 
 
-bool SMCAMDProcessor::start(IOService *provider){
+bool SMCProcessorAMD::start(IOService *provider){
     
     bool success = IOService::start(provider);
     if(!success){
@@ -247,14 +247,14 @@ bool SMCAMDProcessor::start(IOService *provider){
     mpLock = IOSimpleLockAlloc();
     workLoop = IOWorkLoop::workLoop();
     timerEventSource = IOTimerEventSource::timerEventSource(this, [](OSObject *object, IOTimerEventSource *sender) {
-        SMCAMDProcessor *provider = OSDynamicCast(SMCAMDProcessor, object);
+        SMCProcessorAMD *provider = OSDynamicCast(SMCProcessorAMD, object);
         IOSimpleLockLock(provider->mpLock);
         
         //Run initialization
         if(!provider->serviceInitialized){
             //Disable interrupts and sync all processor cores.
             mp_rendezvous_no_intrs([](void *obj) {
-                auto provider = static_cast<SMCAMDProcessor*>(obj);
+                auto provider = static_cast<SMCProcessorAMD*>(obj);
                 
                 
                 uint64_t hwConfig;
@@ -303,7 +303,7 @@ bool SMCAMDProcessor::start(IOService *provider){
         
         
         mp_rendezvous_no_intrs([](void *obj) {
-            auto provider = static_cast<SMCAMDProcessor*>(obj);
+            auto provider = static_cast<SMCProcessorAMD*>(obj);
             uint32_t cpu_num = cpu_number();
             
             // Ignore hyper-threaded cores
@@ -367,7 +367,7 @@ bool SMCAMDProcessor::start(IOService *provider){
     return success;
 }
 
-void SMCAMDProcessor::stop(IOService *provider){
+void SMCProcessorAMD::stop(IOService *provider){
     IOLog("AMDCPUSupport stopped, you have no more support :(\n");
     
     timerEventSource->cancelTimeout();
@@ -377,7 +377,7 @@ void SMCAMDProcessor::stop(IOService *provider){
     IOService::stop(provider);
 }
 
-bool SMCAMDProcessor::read_msr(uint32_t addr, uint64_t *value){
+bool SMCProcessorAMD::read_msr(uint32_t addr, uint64_t *value){
     
     uint32_t lo, hi;
     //    IOLog("AMDCPUSupport lalala \n");
@@ -389,7 +389,7 @@ bool SMCAMDProcessor::read_msr(uint32_t addr, uint64_t *value){
     return err == 0;
 }
 
-bool SMCAMDProcessor::write_msr(uint32_t addr, uint64_t value){
+bool SMCProcessorAMD::write_msr(uint32_t addr, uint64_t value){
     if(wrmsr_carefully){
         uint32_t lo = value & 0xffffffff;
         uint32_t hi = value >> 32;
@@ -401,14 +401,14 @@ bool SMCAMDProcessor::write_msr(uint32_t addr, uint64_t value){
     return true;
 }
 
-void SMCAMDProcessor::registerRequest(){
+void SMCProcessorAMD::registerRequest(){
     uint32_t now = (uint32_t)(getCurrentTimeNs() / 1000000);
     
     estimatedRequestTimeInterval = now - timeOfLastMissedRequest;
     timeOfLastMissedRequest = now;
 }
 
-void SMCAMDProcessor::updateClockSpeed(uint8_t physical){
+void SMCProcessorAMD::updateClockSpeed(uint8_t physical){
     
     uint64_t msr_value_buf = 0;
     bool err = !read_msr(kMSR_HARDWARE_PSTATE_STATUS, &msr_value_buf);
@@ -433,7 +433,7 @@ void SMCAMDProcessor::updateClockSpeed(uint8_t physical){
     //    IOLog("AMDCPUSupport::updateClockSpeed: %u\n", curHwPstate);
 }
 
-void SMCAMDProcessor::calculateEffectiveFrequency(uint8_t physical){
+void SMCProcessorAMD::calculateEffectiveFrequency(uint8_t physical){
     
     uint32_t APERF_lo, APERF_hi;
     uint32_t MPERF_lo, MPERF_hi;
@@ -481,7 +481,7 @@ void SMCAMDProcessor::calculateEffectiveFrequency(uint8_t physical){
     lastMPERF_PerCore[physical] = MPERF;
 }
 
-void SMCAMDProcessor::updateInstructionDelta(uint8_t physical){
+void SMCProcessorAMD::updateInstructionDelta(uint8_t physical){
     uint64_t insCount;
     
     if(!read_msr(kMSR_PERF_IRPC, &insCount))
@@ -508,16 +508,16 @@ void SMCAMDProcessor::updateInstructionDelta(uint8_t physical){
     loadIndex_PerCore[physical] = log10f(min(index,1) * growth) / log10f(growth);
 }
 
-void SMCAMDProcessor::applyPowerControl(){
+void SMCProcessorAMD::applyPowerControl(){
     IOSimpleLockLock(mpLock);
     mp_rendezvous(nullptr, [](void *obj) {
-        auto provider = static_cast<SMCAMDProcessor*>(obj);
+        auto provider = static_cast<SMCProcessorAMD*>(obj);
         provider->write_msr(kMSR_PSTATE_CTL, (uint64_t)(provider->PStateCtl & 0x7));
     }, nullptr, this);
     IOSimpleLockUnlock(mpLock);
 }
 
-void SMCAMDProcessor::updatePowerControl(){
+void SMCProcessorAMD::updatePowerControl(){
     //Passive PM
     float loadMax = 0;
     bool inc = false;
@@ -541,7 +541,7 @@ void SMCAMDProcessor::updatePowerControl(){
     applyPowerControl();
 }
 
-void SMCAMDProcessor::setCPBState(bool enabled){
+void SMCProcessorAMD::setCPBState(bool enabled){
     if(!cpbSupported) return;
     
     uint64_t hwConfig;
@@ -560,13 +560,13 @@ void SMCAMDProcessor::setCPBState(bool enabled){
     IOSimpleLockLock(mpLock);
     mp_rendezvous(nullptr, [](void *obj) {
         auto v = static_cast<uint64_t*>(*((uint64_t**)obj+1));
-        auto provider = static_cast<SMCAMDProcessor*>(*((SMCAMDProcessor**)obj));
+        auto provider = static_cast<SMCProcessorAMD*>(*((SMCProcessorAMD**)obj));
         provider->write_msr(kMSR_HWCR, *v);
     }, nullptr, args);
     IOSimpleLockUnlock(mpLock);
 }
 
-bool SMCAMDProcessor::getCPBState(){
+bool SMCProcessorAMD::getCPBState(){
     uint64_t hwConfig;
     if(!read_msr(kMSR_HWCR, &hwConfig))
         panic("AMDCPUSupport::start: wtf?");
@@ -574,7 +574,7 @@ bool SMCAMDProcessor::getCPBState(){
     return !((hwConfig >> 25) & 0x1);
 }
 
-void SMCAMDProcessor::updatePackageTemp(){
+void SMCProcessorAMD::updatePackageTemp(){
     IOPCIAddressSpace space;
     space.bits = 0x00;
     
@@ -596,7 +596,7 @@ void SMCAMDProcessor::updatePackageTemp(){
     PACKAGE_TEMPERATURE_perPackage[0] = t;
 }
 
-void SMCAMDProcessor::updatePackageEnergy(){
+void SMCProcessorAMD::updatePackageEnergy(){
     
     uint64_t time = getCurrentTimeNs();
     
@@ -615,7 +615,7 @@ void SMCAMDProcessor::updatePackageEnergy(){
     lastUpdateTime = time;
 }
 
-void SMCAMDProcessor::dumpPstate(uint8_t physical){
+void SMCProcessorAMD::dumpPstate(uint8_t physical){
     
     uint8_t len = 0;
     for (uint32_t i = 0; i < kMSR_PSTATE_LEN; i++) {
@@ -643,7 +643,7 @@ void SMCAMDProcessor::dumpPstate(uint8_t physical){
     PStateEnabledLen = max(PStateEnabledLen, len);
 }
 
-void SMCAMDProcessor::writePstate(const uint64_t *buf){
+void SMCProcessorAMD::writePstate(const uint64_t *buf){
     
     PStateEnabledLen = 0;
     
@@ -655,7 +655,7 @@ void SMCAMDProcessor::writePstate(const uint64_t *buf){
     IOSimpleLockLock(mpLock);
     mp_rendezvous(nullptr, [](void *obj) {
         auto v = static_cast<uint64_t*>(((uint64_t**)obj)[1]);
-        auto provider = static_cast<SMCAMDProcessor*>(*((SMCAMDProcessor**)obj));
+        auto provider = static_cast<SMCProcessorAMD*>(*((SMCProcessorAMD**)obj));
 
         for (uint32_t i = 0; i < kMSR_PSTATE_LEN; i++) {
             uint64_t def = v[i];

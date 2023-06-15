@@ -1,6 +1,6 @@
 //
-//  SMCAMDProcessorUserClient.cpp
-//  SMCAMDProcessor
+//  SMCProcessorAMDUserClient.cpp
+//  SMCProcessorAMD
 //
 //  Created by Qi HaoYan on 2/4/20.
 //  Copyright © 2020 Qi HaoYan. All rights reserved.
@@ -10,10 +10,10 @@
 
 
 
-OSDefineMetaClassAndStructors(SMCAMDProcessorUserClient, IOUserClient);
+OSDefineMetaClassAndStructors(SMCProcessorAMDUserClient, IOUserClient);
 
 
-bool SMCAMDProcessorUserClient::initWithTask(task_t owningTask,
+bool SMCProcessorAMDUserClient::initWithTask(task_t owningTask,
                                              void *securityToken,
                                              UInt32 type,
                                              OSDictionary *properties){
@@ -31,20 +31,20 @@ bool SMCAMDProcessorUserClient::initWithTask(task_t owningTask,
 
 }
 
-bool SMCAMDProcessorUserClient::start(IOService *provider){
+bool SMCProcessorAMDUserClient::start(IOService *provider){
     
     IOLog("AMDCPUSupportUserClient::start\n");
     
     bool success = IOService::start(provider);
     
     if(success){
-        fProvider = OSDynamicCast(SMCAMDProcessor, provider);
+        fProvider = OSDynamicCast(SMCProcessorAMD, provider);
     }
     
     return success;
 }
 
-void SMCAMDProcessorUserClient::stop(IOService *provider){
+void SMCProcessorAMDUserClient::stop(IOService *provider){
     IOLog("AMDCPUSupportUserClient::stop\n");
     
     fProvider = nullptr;
@@ -60,7 +60,7 @@ uint64_t multiply_two_numbers(uint64_t number_one, uint64_t number_two){
     return number_three;
 }
 
-bool SMCAMDProcessorUserClient::hasPrivilege(){
+bool SMCProcessorAMDUserClient::hasPrivilege(){
     if(fProvider->disablePrivilegeCheck) return true;
     if(clientHasPrivilege(token, kIOClientPrivilegeAdministrator) == kIOReturnSuccess) return true;
     
@@ -72,7 +72,7 @@ bool SMCAMDProcessorUserClient::hasPrivilege(){
     
     unsigned int rf;
     (*(fProvider->kunc_alert))(0, 0, NULL, NULL, NULL,
-                  "SMCAMDProcessor", buf, "Deny", "I'm not sure.", "Authorize", &rf);
+                  "SMCProcessorAMD", buf, "Deny", "I'm not sure.", "Authorize", &rf);
     
     
     if(rf == 2) return true;
@@ -80,7 +80,7 @@ bool SMCAMDProcessorUserClient::hasPrivilege(){
     return false;
 }
 
-IOReturn SMCAMDProcessorUserClient::externalMethod(uint32_t selector, IOExternalMethodArguments *arguments,
+IOReturn SMCProcessorAMDUserClient::externalMethod(uint32_t selector, IOExternalMethodArguments *arguments,
                                                  IOExternalMethodDispatch *dispatch,
                                                    OSObject *target, void *reference){
     
@@ -222,7 +222,7 @@ IOReturn SMCAMDProcessorUserClient::externalMethod(uint32_t selector, IOExternal
             break;
         }
         
-        //Get SMCAMDProcessor Version String
+        //Get SMCProcessorAMD Version String
         case 8: {
             arguments->scalarOutputCount = 0;
             

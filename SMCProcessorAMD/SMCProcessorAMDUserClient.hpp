@@ -1,16 +1,16 @@
 //
-//  SMCAMDProcessorUserClient.hpp
-//  SMCAMDProcessor
+//  SMCProcessorAMDUserClient.hpp
+//  SMCProcessorAMD
 //
 //  Created by Qi HaoYan on 2/4/20.
 //  Copyright © 2020 Qi HaoYan. All rights reserved.
 //
 
-#ifndef SMCAMDProcessorUserClient_hpp
-#define SMCAMDProcessorUserClient_hpp
+#ifndef SMCProcessorAMDUserClient_hpp
+#define SMCProcessorAMDUserClient_hpp
 
 //Support for macOS 10.13
-#include <IOKit/IOService.h>
+#include <Library/LegacyIOService.h>
 #include "LegacyHeaders/LegacyIOUserClient.h"
 
 #include <sys/proc.h>
@@ -27,10 +27,10 @@ extern "C" {
 
 
 
-class SMCAMDProcessorUserClient : public IOUserClient
+class SMCProcessorAMDUserClient : public IOUserClient
 {
 
-    OSDeclareDefaultStructors(SMCAMDProcessorUserClient)
+    OSDeclareDefaultStructors(SMCProcessorAMDUserClient)
     
       
 public:
@@ -45,7 +45,7 @@ public:
     
 protected:
     
-    SMCAMDProcessor *fProvider;
+    SMCProcessorAMD *fProvider;
     void *token;
     
     bool hasPrivilege();

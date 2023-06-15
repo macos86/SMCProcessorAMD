@@ -1,6 +1,6 @@
 //
 //  KeyImplementations.hpp
-//  SMCAMDProcessor
+//  SMCProcessorAMD
 //
 //  Created by Qi HaoYan on 2/12/20.
 //  Copyright © 2020 Qi HaoYan. All rights reserved.
@@ -12,16 +12,16 @@
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
 #include "SMCProcessorAMD.hpp"
 
-class SMCAMDProcessor;
+class SMCProcessorAMD;
 
 
 class AMDSupportVsmcValue : public VirtualSMCValue {
 protected:
-    SMCAMDProcessor *provider;
+    SMCProcessorAMD *provider;
     size_t package;
     size_t core;
 public:
-    AMDSupportVsmcValue(SMCAMDProcessor *provider, size_t package, size_t core=0) : provider(provider), package(package), core(core) {}
+    AMDSupportVsmcValue(SMCProcessorAMD *provider, size_t package, size_t core=0) : provider(provider), package(package), core(core) {}
 };
 
 

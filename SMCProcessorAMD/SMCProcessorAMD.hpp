@@ -1,8 +1,8 @@
-#ifndef SMCAMDProcessor_h
-#define SMCAMDProcessor_h
+#ifndef SMCProcessorAMD_h
+#define SMCProcessorAMD_h
 
 //Support for macOS 10.13
-#include <IOKit/IOService.h>
+#include <Library/LegacyIOService.h>
 
 //#include <IOKit/IOService.h>
 //#include <IOKit/IOLib.h>
@@ -59,8 +59,8 @@ typedef struct tctl_offset {
 
 
 
-class SMCAMDProcessor : public IOService {
-    OSDeclareDefaultStructors(SMCAMDProcessor)
+class SMCProcessorAMD : public IOService {
+    OSDeclareDefaultStructors(SMCProcessorAMD)
     
     /**
      *  VirtualSMC service registration notifier
