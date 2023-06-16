@@ -245,7 +245,7 @@ public:
     uint64_t lastUpdateTime;
     uint64_t lastUpdateEnergyValue;
     
-    double uniPackageEnegry;
+    double uniPackageEnergy;
     
     
     bool disablePrivilegeCheck = false;

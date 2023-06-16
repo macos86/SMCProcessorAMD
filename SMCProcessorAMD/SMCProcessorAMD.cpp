@@ -47,21 +47,21 @@ bool SMCProcessorAMD::setupKeysVsmc(){
     suc &= VirtualSMCAPI::addKey(KeyTCxp(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, 0)));
     
     
-    suc &= VirtualSMCAPI::addKey(KeyPCPR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-    suc &= VirtualSMCAPI::addKey(KeyPSTR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-    //    suc &= VirtualSMCAPI::addKey(KeyPCPT, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-    //    suc &= VirtualSMCAPI::addKey(KeyPCTR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
+    suc &= VirtualSMCAPI::addKey(KeyPCPR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+    suc &= VirtualSMCAPI::addKey(KeyPSTR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+    //    suc &= VirtualSMCAPI::addKey(KeyPCPT, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+    //    suc &= VirtualSMCAPI::addKey(KeyPCTR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
     
     
-    //    VirtualSMCAPI::addKey(KeyPC0C, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-    //    VirtualSMCAPI::addKey(KeyPC0R, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-    //    VirtualSMCAPI::addKey(KeyPCAM, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnegryPackage(this, 0)));
-    //    VirtualSMCAPI::addKey(KeyPCPC, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
+    //    VirtualSMCAPI::addKey(KeyPC0C, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+    //    VirtualSMCAPI::addKey(KeyPC0R, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+    //    VirtualSMCAPI::addKey(KeyPCAM, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnergyPackage(this, 0)));
+    //    VirtualSMCAPI::addKey(KeyPCPC, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
     //
-    //    VirtualSMCAPI::addKey(KeyPC0G, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-    //    VirtualSMCAPI::addKey(KeyPCGC, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnegryPackage(this, 0)));
-    //    VirtualSMCAPI::addKey(KeyPCGM, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnegryPackage(this, 0)));
-    //    VirtualSMCAPI::addKey(KeyPCPG, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
+    //    VirtualSMCAPI::addKey(KeyPC0G, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+    //    VirtualSMCAPI::addKey(KeyPCGC, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnergyPackage(this, 0)));
+    //    VirtualSMCAPI::addKey(KeyPCGM, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnergyPackage(this, 0)));
+    //    VirtualSMCAPI::addKey(KeyPCPG, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
     
     //Since AMD cpu dont have temperature MSR for each core, we simply report the same package temperature for all cores.
     //    for(int core = 0; core < totalNumberOfPhysicalCores; core++){
@@ -603,15 +603,15 @@ void SMCProcessorAMD::updatePackageEnergy(){
     uint64_t msr_value_buf = 0;
     read_msr(kMSR_PKG_ENERGY_STAT, &msr_value_buf);
     
-    uint32_t enegryValue = (uint32_t)(msr_value_buf & 0xffffffff);
+    uint32_t EnergyValue = (uint32_t)(msr_value_buf & 0xffffffff);
     
-    uint64_t enegryDelta = (lastUpdateEnergyValue <= enegryValue) ?
-    enegryValue - lastUpdateEnergyValue : UINT64_MAX - lastUpdateEnergyValue;
+    uint64_t EnergyDelta = (lastUpdateEnergyValue <= EnergyValue) ?
+    EnergyValue - lastUpdateEnergyValue : UINT64_MAX - lastUpdateEnergyValue;
     
-    double e = (0.0000153 * enegryDelta) / ((time - lastUpdateTime) / 1000000000.0);
-    uniPackageEnegry = e;
+    double e = (0.0000153 * EnergyDelta) / ((time - lastUpdateTime) / 1000000000.0);
+    uniPackageEnergy = e;
     
-    lastUpdateEnergyValue = enegryValue;
+    lastUpdateEnergyValue = EnergyValue;
     lastUpdateTime = time;
 }
 

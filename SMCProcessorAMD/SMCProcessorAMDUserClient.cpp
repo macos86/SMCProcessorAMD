@@ -160,7 +160,7 @@ IOReturn SMCProcessorAMDUserClient::externalMethod(uint32_t selector, IOExternal
 
             float *dataOut = (float*) arguments->structureOutput;
             
-            dataOut[0] = (float)fProvider->uniPackageEnegry;
+            dataOut[0] = (float)fProvider->uniPackageEnergy;
             dataOut[1] = fProvider->PACKAGE_TEMPERATURE_perPackage[0];
             dataOut[2] = fProvider->PStateCtl;
             
