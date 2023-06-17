@@ -28,7 +28,7 @@ jobs:
           src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/ci-bootstrap.sh) && eval "$src" || exit 1
       - name: Lilu Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/Lorys89/SMCProcessorAMD/master/Scripts/bootstrap.sh) && eval "$src" || exit 1
+          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/Lorys89/SMCProcessorAMD/main/Scripts/bootstrap.sh?token=GHSAT0AAAAAACAXHK322SD5N4ZKGQ3E52AEZEOHPTQ) && eval "$src" || exit 1
 
       - run: xcodebuild -jobs 1 -configuration Debug -arch x86_64
       - run: xcodebuild -jobs 1 -configuration Release -arch x86_64
