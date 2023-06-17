@@ -1,4 +1,5 @@
 # SMCProcessorAMD
+[![CI](https://github.com/Lorys89/SMCProcessorAMD/actions/workflows/main.yml/badge.svg)](https://github.com/Lorys89/SMCProcessorAMD/actions/workflows/main.yml)
 
 VirtualSMC plugin for AMD CPU temperature
 
