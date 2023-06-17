@@ -28,8 +28,8 @@ jobs:
       - name: Lilu & VirtualSMC Bootstrap
         run: |
           src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/Lorys89/Lorys89/main/Scripts/bootstrap.sh) && eval "$src" || exit 1
-      - run: xcodebuild -jobs 1 -configuration Debug
-      - run: xcodebuild -jobs 1 -configuration Release
+      - run: xcodebuild -jobs 1 -configuration Debug -arch x86_64
+      - run: xcodebuild -jobs 1 -configuration Release -arch x86_64
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
