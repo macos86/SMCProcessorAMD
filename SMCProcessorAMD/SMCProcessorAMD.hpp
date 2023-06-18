@@ -2,9 +2,7 @@
 #define SMCProcessorAMD_h
 
 #include <IOKit/IOService.h>
-
-//#include <IOKit/IOService.h>
-//#include <IOKit/IOLib.h>
+#include <IOKit/IOLib.h>
 
 #include <math.h>
 #include <IOKit/pci/IOPCIDevice.h>
