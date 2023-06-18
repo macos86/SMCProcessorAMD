@@ -9,14 +9,13 @@
 #ifndef SMCProcessorAMDUserClient_hpp
 #define SMCProcessorAMDUserClient_hpp
 
-#include <IOKit/IOService.h>
 #include "LegacyHeaders/LegacyIOUserClient.h"
 
 #include <sys/proc.h>
 
-//#include <IOKit/IOService.h>
-//#include <IOKit/IOUserClient.h>
-//#include <IOKit/IOLib.h>
+#include <IOKit/IOService.h>
+#include <IOKit/IOUserClient.h>
+#include <IOKit/IOLib.h>
 
 #include "SMCProcessorAMD.hpp"
 
