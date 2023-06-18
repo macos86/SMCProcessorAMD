@@ -362,7 +362,7 @@ bool SMCProcessorAMD::start(IOService *provider){
     
 //    
 //    IOLog("AMDCPUSupport::start registering VirtualSMC keys...\n");
-//    setupKeysVsmc();
+      setupKeysVsmc();
     
     return success;
 }
