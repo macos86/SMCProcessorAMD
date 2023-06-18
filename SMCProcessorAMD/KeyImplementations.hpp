@@ -9,7 +9,10 @@
 #ifndef KeyImplementations_hpp
 #define KeyImplementations_hpp
 
+#include <libkern/libkern.h>
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
+#include <VirtualSMCSDK/AppleSmc.h>
+
 #include "SMCProcessorAMD.hpp"
 
 class SMCProcessorAMD;
