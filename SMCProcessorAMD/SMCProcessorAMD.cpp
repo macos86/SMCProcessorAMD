@@ -51,10 +51,10 @@ bool SMCProcessorAMD::setupKeysVsmc(){
 //    VirtualSMCAPI::addKey(KeyPCPG, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
     
     //Since AMD cpu dont have temperature MSR for each core, we simply report the same package temperature for all cores.
-//    for(int core = 0; core < totalNumberOfPhysicalCores; core++){
+    for(int core = 0; core < totalNumberOfPhysicalCores; core++){
         VirtualSMCAPI::addKey(KeyTCxC(core), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, 0, core)));
-//        VirtualSMCAPI::addKey(KeyTCxc(core), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, 0, core)));
-//    }
+        VirtualSMCAPI::addKey(KeyTCxc(core), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, 0, core)));
+    }
     
     if(!suc){
         IOLog("AMDCPUSupport::setupKeysVsmc: VirtualSMCAPI::addKey returned false. \n");
