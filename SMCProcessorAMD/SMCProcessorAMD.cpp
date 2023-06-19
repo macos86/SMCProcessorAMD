@@ -168,14 +168,14 @@ bool SMCProcessorAMD::start(IOService *provider){
         provider->timerEventSource->setTimeoutMS(1000);
     });
     
-    if(!CPUInfo::getCpuTopology(cpuTopology)){
+         if(!CPUInfo::getCpuTopology(cpuTopology)){
         IOLog("AMDCPUSupport::start unable to get CPU Topology.\n");
     }
     IOLog("AMDCPUSupport::start got %hhu CPU(s): Physical Count: %hhu, Logical Count %hhu.\n",
           cpuTopology.packageCount, cpuTopology.totalPhysical(), cpuTopology.totalLogical());
     
     totalNumberOfPhysicalCores = cpuTopology.totalPhysical();
-    
+    totalNumberOfLogicalCores = cpuTopology.totalLogical();
     
     IOLog("AMDCPUSupport::start trying to init PCI service...\n");
     if(!getPCIService()){
