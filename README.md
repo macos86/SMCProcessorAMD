@@ -3,6 +3,13 @@
 
 VirtualSMC plugin for AMD CPU temperature
 
+## Supported Systems
+- macOS Sonoma
+- macOS Ventura
+- macOS Monterey
+- macOS Big Sur  
+- macOS Catalina  
+
 ## Credits
 - [Apple](https://www.apple.com) for macOS
 - [vit9696](https://github.com/vit9696) for [VirtualSMC](https://github.com/acidanthera/VirtualSMC)
