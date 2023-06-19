@@ -15,3 +15,4 @@ VirtualSMC plugin for AMD CPU temperature
 - [vit9696](https://github.com/vit9696) for [VirtualSMC](https://github.com/acidanthera/VirtualSMC)
 - [trulyspinach](https://github.com/trulyspinach) for [SMCAMDProcessor](https://github.com/trulyspinach/SMCAMDProcessor)
 - [hieplpvip](https://github.com/hieplpvip) for [Script bootstrap.sh](https://github.com/hieplpvip/AsusSMC/blob/master/Scripts/bootstrap.sh)
+- [mbarbierato](https://github.com/mbarbierato) for developing this VSMC plugin
