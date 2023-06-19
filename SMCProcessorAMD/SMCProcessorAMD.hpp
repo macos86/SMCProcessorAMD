@@ -144,13 +144,15 @@ private:
     IOTimerEventSource *timerEventSource;
     
     
-    CPUInfo::CpuGeneration cpuGeneration {CPUInfo::CpuGeneration::Unknown};
+    //CPUInfo::CpuGeneration cpuGeneration {CPUInfo::CpuGeneration::Unknown};
 
     uint32_t cpuFamily {0}, cpuModel {0}, cpuStepping {0};
     
     CPUInfo::CpuTopology cpuTopology {};
     
     IOPCIDevice *fIOPCIDevice;
+    
+    float tempOffset = 0;
     
     bool setupKeysVsmc();
     bool getPCIService();
