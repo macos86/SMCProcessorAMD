@@ -35,20 +35,20 @@ bool SMCProcessorAMD::setupKeysVsmc(){
     suc &= VirtualSMCAPI::addKey(KeyTCxp(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, 0)));
     
     
-    suc &= VirtualSMCAPI::addKey(KeyPCPR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-    //suc &= VirtualSMCAPI::addKey(KeyPCPT, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-    //suc &= VirtualSMCAPI::addKey(KeyPCTR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
+    suc &= VirtualSMCAPI::addKey(KeyPCPR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+    //suc &= VirtualSMCAPI::addKey(KeyPCPT, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+    //suc &= VirtualSMCAPI::addKey(KeyPCTR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
     
     
-//    VirtualSMCAPI::addKey(KeyPC0C, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-//    VirtualSMCAPI::addKey(KeyPC0R, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-//    VirtualSMCAPI::addKey(KeyPCAM, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnegryPackage(this, 0)));
-//    VirtualSMCAPI::addKey(KeyPCPC, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
+//    VirtualSMCAPI::addKey(KeyPC0C, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+//    VirtualSMCAPI::addKey(KeyPC0R, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+//    VirtualSMCAPI::addKey(KeyPCAM, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnergyPackage(this, 0)));
+//    VirtualSMCAPI::addKey(KeyPCPC, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
 //
-//    VirtualSMCAPI::addKey(KeyPC0G, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
-//    VirtualSMCAPI::addKey(KeyPCGC, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnegryPackage(this, 0)));
-//    VirtualSMCAPI::addKey(KeyPCGM, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnegryPackage(this, 0)));
-//    VirtualSMCAPI::addKey(KeyPCPG, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnegryPackage(this, 0)));
+//    VirtualSMCAPI::addKey(KeyPC0G, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
+//    VirtualSMCAPI::addKey(KeyPCGC, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnergyPackage(this, 0)));
+//    VirtualSMCAPI::addKey(KeyPCGM, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new EnergyPackage(this, 0)));
+//    VirtualSMCAPI::addKey(KeyPCPG, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new EnergyPackage(this, 0)));
     
     //Since AMD cpu dont have temperature MSR for each core, we simply report the same package temperature for all cores.
     // for(int core = 0; core < totalNumberOfPhysicalCores; core++){
@@ -163,7 +163,7 @@ bool SMCProcessorAMD::start(IOService *provider){
         
         //Read stats from package.
         provider->updatePackageTemp();
-        provider->updatePackageEnegry();
+        provider->updatePackageEnergy();
         
         provider->timerEventSource->setTimeoutMS(1000);
     });
@@ -259,26 +259,26 @@ void SMCProcessorAMD::updatePackageTemp(){
 //    IOLog("AMDCPUSupport::updatePackageTemp: read from pci device %d \n", (int)PACKAGE_TEMPERATURE_perPackage[0]);
 }
 
-void SMCProcessorAMD::updatePackageEnegry(){
+void SMCProcessorAMD::updatePackageEnergy(){
     
     uint64_t time = getCurrentTimeNs();
     
     uint64_t msr_value_buf = 0;
     read_msr(kMSR_PKG_ENERGY_STAT, &msr_value_buf);
     
-    uint32_t enegryValue = (uint32_t)(msr_value_buf & 0xffffffff);
+    uint32_t energyValue = (uint32_t)(msr_value_buf & 0xffffffff);
     
-    uint64_t enegryDelta = (lastUpdateEnegryValue <= enegryValue) ?
-        enegryValue - lastUpdateEnegryValue : UINT64_MAX - lastUpdateEnegryValue;
+    uint64_t energyDelta = (lastUpdateEnergyValue <= energyValue) ?
+        energyValue - lastUpdateEnergyValue : UINT64_MAX - lastUpdateEnergyValue;
     
-    double e = (0.0000153 * enegryDelta) / ((time - lastUpdateTime) / 1000000000.0);
-    uniPackageEnegry = e;
+    double e = (0.0000153 * energyDelta) / ((time - lastUpdateTime) / 1000000000.0);
+    uniPackageEnergy = e;
     
-    lastUpdateEnegryValue = enegryValue;
+    lastUpdateEnergyValue = energyValue;
     lastUpdateTime = time;
     
-//    IOLog("AMDCPUSupport::updatePackageEnegry: %d \n", (int)e);
-//    IOLog("AMDCPUSupport::updatePackageEnegry: %d la\n", (int)enegryDelta);
+//    IOLog("AMDCPUSupport::updatePackageEnergy: %d \n", (int)e);
+//    IOLog("AMDCPUSupport::updatePackageEnergy: %d la\n", (int)energyDelta);
     
 }
 

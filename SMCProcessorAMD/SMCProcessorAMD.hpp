@@ -121,7 +121,7 @@ public:
     
     void updateClockSpeed();
     void updatePackageTemp();
-    void updatePackageEnegry();
+    void updatePackageEnergy();
     
     uint32_t totalNumberOfPhysicalCores;
     
@@ -133,9 +133,9 @@ public:
     float PACKAGE_TEMPERATURE_perPackage[CPUInfo::MaxCpus];
     
     uint64_t lastUpdateTime;
-    uint64_t lastUpdateEnegryValue;
+    uint64_t lastUpdateEnergyValue;
     
-    double uniPackageEnegry;
+    double uniPackageEnergy;
     
     
 private:
