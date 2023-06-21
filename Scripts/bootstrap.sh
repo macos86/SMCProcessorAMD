@@ -3,10 +3,7 @@
 #
 #  bootstrap.sh
 #
-#  Copyright © 2019 hieplpvip. All rights reserved.
-#
 #  This script is supposed to quickly bootstrap Lilu/VirtualSMC SDK for plugin building.
-#
 #
 
 SDK_PATH="Lilu.kext"
