@@ -3,6 +3,17 @@
 
 OSDefineMetaClassAndStructors(SMCProcessorAMD, IOService);
 
+#define TCTL_OFFSET_TABLE_LEN 6
+static constexpr const struct tctl_offset tctl_offset_table[] = {
+    { 0x17, "AMD Ryzen 5 1600X", 20 },
+    { 0x17, "AMD Ryzen 7 1700X", 20 },
+    { 0x17, "AMD Ryzen 7 1800X", 20 },
+    { 0x17, "AMD Ryzen 7 2700X", 10 },
+    { 0x17, "AMD Ryzen Threadripper 19", 27 }, /* 19{00,20,50}X */
+    { 0x17, "AMD Ryzen Threadripper 29", 27 }, /* 29{20,50,70,90}[W]X */
+};
+
+
 bool ADDPR(debugEnabled) = false;
 uint32_t ADDPR(debugPrintDelay) = 0;
 
@@ -149,6 +160,60 @@ bool SMCProcessorAMD::start(IOService *provider){
         return false;
     }
     
+    CPUInfo::getCpuid(1, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
+    cpuFamily = ((cpuid_eax >> 20) & 0xff) + ((cpuid_eax >> 8) & 0xf);
+    cpuModel = ((cpuid_eax >> 16) & 0xf) + ((cpuid_eax >> 4) & 0xf);
+    
+    //Only 17h Family are supported offically by now.
+    cpuSupportedByCurrentVersion = (cpuFamily == 0x17)? 1 : 0;
+    IOLog("AMDCPUSupport::start Family %02Xh, Model %02Xh\n", cpuFamily, cpuModel);
+    
+    CPUInfo::getCpuid(0x80000005, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
+    cpuCacheL1_perCore = (cpuid_ecx >> 24) + (cpuid_ecx >> 24);
+    
+    
+    CPUInfo::getCpuid(0x80000006, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
+    cpuCacheL2_perCore = (cpuid_ecx >> 16);
+    cpuCacheL3 = (cpuid_edx >> 18) * 512;
+    IOLog("AMDCPUSupport::start L1: %u, L2: %u, L3: %u\n",
+          cpuCacheL1_perCore, cpuCacheL2_perCore, cpuCacheL3);
+    
+    
+    CPUInfo::getCpuid(0x80000007, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
+    cpbSupported = (cpuid_edx >> 9) & 0x1;
+    
+    uint32_t nameString[12]{};
+    CPUInfo::getCpuid(0x80000002, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
+    nameString[0] = cpuid_eax; nameString[1] = cpuid_ebx; nameString[2] = cpuid_ecx; nameString[3] = cpuid_edx;
+    CPUInfo::getCpuid(0x80000003, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
+    nameString[4] = cpuid_eax; nameString[5] = cpuid_ebx; nameString[6] = cpuid_ecx; nameString[7] = cpuid_edx;
+    CPUInfo::getCpuid(0x80000004, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
+    nameString[8] = cpuid_eax; nameString[9] = cpuid_ebx; nameString[10] = cpuid_ecx; nameString[11] = cpuid_edx;
+    
+    IOLog("AMDCPUSupport::start Processor: %s))\n", (char*)nameString);
+    
+    //Check tctl temperature offset
+    for(int i = 0; i < TCTL_OFFSET_TABLE_LEN; i++){
+        const TempOffset *to = tctl_offset_table + i;
+        IOLog("############%s##########\n", to->id);
+        if(cpuFamily == to->model && strstr((char*)nameString, to->id)){
+            
+            tempOffset = (float)to->offset;
+            break;
+        }
+    }
+    
+    
+    if(!CPUInfo::getCpuTopology(cpuTopology)){
+        IOLog("AMDCPUSupport::start unable to get CPU Topology.\n");
+    }
+    IOLog("AMDCPUSupport::start got %hhu CPU(s): Physical Count: %hhu, Logical Count %hhu.\n",
+          cpuTopology.packageCount, cpuTopology.totalPhysical(), cpuTopology.totalLogical());
+    
+    totalNumberOfPhysicalCores = cpuTopology.totalPhysical();
+    totalNumberOfLogicalCores = cpuTopology.totalLogical();
+    
+    
     workLoop = IOWorkLoop::workLoop();
     timerEventSource = IOTimerEventSource::timerEventSource(this, [](OSObject *object, IOTimerEventSource *sender) {
         SMCProcessorAMD *provider = OSDynamicCast(SMCProcessorAMD, object);
@@ -167,15 +232,7 @@ bool SMCProcessorAMD::start(IOService *provider){
         
         provider->timerEventSource->setTimeoutMS(1000);
     });
-    
-    if(!CPUInfo::getCpuTopology(cpuTopology)){
-        IOLog("AMDCPUSupport::start unable to get CPU Topology.\n");
-    }
-    IOLog("AMDCPUSupport::start got %hhu CPU(s): Physical Count: %hhu, Logical Count %hhu.\n",
-          cpuTopology.packageCount, cpuTopology.totalPhysical(), cpuTopology.totalLogical());
-    
-    totalNumberOfPhysicalCores = cpuTopology.totalPhysical();
-    
+        
     IOLog("AMDCPUSupport::start trying to init PCI service...\n");
     if(!getPCIService()){
         IOLog("AMDCPUSupport::start no PCI support found, failing...\n");

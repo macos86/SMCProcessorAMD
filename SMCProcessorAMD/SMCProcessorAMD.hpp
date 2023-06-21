@@ -25,8 +25,25 @@
 extern "C" {
     int cpu_number(void);
     void mp_rendezvous_no_intrs(void (*action_func)(void *), void *arg);
+
+    void
+    mp_rendezvous(void (*setup_func)(void *),
+                  void (*action_func)(void *),
+                  void (*teardown_func)(void *),
+                  void *arg);
+
+//    int wrmsr_carefully(uint32_t msr, uint64_t val);
 };
 
+
+/**
+ * Offset table: https://github.com/torvalds/linux/blob/master/drivers/hwmon/k10temp.c#L78
+ */
+typedef struct tctl_offset {
+    uint8_t model;
+    char const *id;
+    int offset;
+} TempOffset;
 
 
 class SMCProcessorAMD : public IOService {
@@ -124,13 +141,28 @@ public:
     void updatePackageEnegry();
     
     uint32_t totalNumberOfPhysicalCores;
+    uint32_t totalNumberOfLogicalCores;
     
+    uint8_t cpuFamily;
+    uint8_t cpuModel;
+    uint8_t cpuSupportedByCurrentVersion;
+    
+    //Cache size in KB
+    uint32_t cpuCacheL1_perCore;
+    uint32_t cpuCacheL2_perCore;
+    uint32_t cpuCacheL3;
+    
+    char boardVender[64]{};
+    char boardName[64]{};
+    bool boardInfoValid;
     
     /**
      *  Hard allocate space for cached readings.
      */
     uint64_t MSR_HARDWARE_PSTATE_STATUS_perCore[24] {};
     float PACKAGE_TEMPERATURE_perPackage[CPUInfo::MaxCpus];
+    
+    bool cpbSupported;
     
     uint64_t lastUpdateTime;
     uint64_t lastUpdateEnegryValue;
@@ -142,11 +174,6 @@ private:
     
     IOWorkLoop *workLoop;
     IOTimerEventSource *timerEventSource;
-    
-    
-    //CPUInfo::CpuGeneration cpuGeneration {CPUInfo::CpuGeneration::Unknown};
-
-    uint32_t cpuFamily {0}, cpuModel {0}, cpuStepping {0};
     
     CPUInfo::CpuTopology cpuTopology {};
     
