@@ -19,7 +19,7 @@ uint32_t ADDPR(debugPrintDelay) = 0;
 
 bool SMCProcessorAMD::init(OSDictionary *dictionary){
     
-    IOLog("AMDCPUSupport got inited !!!!!!!!!!!\n");
+    IOLog("AMDCPUSupport v%s, init\n", xStringify(MODULE_VERSION));
     
     return IOService::init(dictionary);
 }
