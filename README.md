@@ -3,6 +3,9 @@
 
 VirtualSMC plugin for AMD CPU temperature
 
+![app-read-temp](./Images/app-read.png)
+
+
 ## Supported Systems
 - macOS Sonoma
 - macOS Ventura
