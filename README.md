@@ -5,9 +5,14 @@ VirtualSMC plugin for AMD CPU temperature
 
 ![app-read-temp](./Images/app-read.png)
 
+![app-read-temp1](./Images/app-read2.png)
+
 (For fan reading use kext SMCSuperIO)
 
 [Macs Fan Control](https://github.com/crystalidea/macs-fan-control/releases)
+
+[HWMonitorSMC2](https://github.com/CloverHackyColor/HWMonitorSMC2/releases)
+
 
 ## Supported Systems
 - macOS Sonoma
