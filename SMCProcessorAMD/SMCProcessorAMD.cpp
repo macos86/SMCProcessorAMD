@@ -19,7 +19,7 @@ uint32_t ADDPR(debugPrintDelay) = 0;
 
 bool SMCProcessorAMD::init(OSDictionary *dictionary){
     
-    IOLog("AMDCPUSupport v%s, init\n", xStringify(MODULE_VERSION));
+    IOLog("SMCProcessorAMD v%s, init\n", xStringify(MODULE_VERSION));
     
     return IOService::init(dictionary);
 }
@@ -51,7 +51,7 @@ bool SMCProcessorAMD::setupKeysVsmc(){
     suc &= VirtualSMCAPI::addKey(KeyTCxp(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, 0)));
      
         if(!suc){
-        IOLog("AMDCPUSupport::setupKeysVsmc: VirtualSMCAPI::addKey returned false. \n");
+        IOLog("SMCProcessorAMD::setupKeysVsmc: VirtualSMCAPI::addKey returned false. \n");
     }
     
     return suc;
@@ -59,19 +59,19 @@ bool SMCProcessorAMD::setupKeysVsmc(){
 
 bool SMCProcessorAMD::vsmcNotificationHandler(void *sensors, void *refCon, IOService *vsmc, IONotifier *notifier) {
     if (sensors && vsmc) {
-        IOLog("AMDCPUSupport: got vsmc notification\n");
+        IOLog("SMCProcessorAMD: got vsmc notification\n");
         auto &plugin = static_cast<SMCProcessorAMD *>(sensors)->vsmcPlugin;
         auto ret = vsmc->callPlatformFunction(VirtualSMCAPI::SubmitPlugin, true, sensors, &plugin, nullptr, nullptr);
         if (ret == kIOReturnSuccess) {
-            IOLog("AMDCPUSupport: submitted plugin\n");
+            IOLog("SMCProcessorAMD: submitted plugin\n");
             return true;
         } else if (ret != kIOReturnUnsupported) {
-            IOLog("AMDCPUSupport: plugin submission failure %X\n", ret);
+            IOLog("SMCProcessorAMD: plugin submission failure %X\n", ret);
         } else {
-            IOLog("AMDCPUSupport: plugin submission to non vsmc\n");
+            IOLog("SMCProcessorAMD: plugin submission to non vsmc\n");
         }
     } else {
-        IOLog("AMDCPUSupport: got null vsmc notification\n");
+        IOLog("SMCProcessorAMD: got null vsmc notification\n");
     }
     return false;
 }
@@ -82,7 +82,7 @@ bool SMCProcessorAMD::getPCIService(){
 
     OSDictionary *matching_dict = serviceMatching("IOPCIDevice");
     if(!matching_dict){
-        IOLog("AMDCPUSupport::getPCIService: serviceMatching unable to generate matching dictonary.\n");
+        IOLog("SMCProcessorAMD::getPCIService: serviceMatching unable to generate matching dictonary.\n");
         return false;
     }
     
@@ -93,7 +93,7 @@ bool SMCProcessorAMD::getPCIService(){
     IOPCIDevice *service = 0;
     
     if(!service_iter){
-        IOLog("AMDCPUSupport::getPCIService: unable to find a matching IOPCIDevice.\n");
+        IOLog("SMCProcessorAMD::getPCIService: unable to find a matching IOPCIDevice.\n");
         return false;
     }
  
@@ -106,11 +106,11 @@ bool SMCProcessorAMD::getPCIService(){
     }
     
     if(!service){
-        IOLog("AMDCPUSupport::getPCIService: unable to get IOPCIDevice on host system.\n");
+        IOLog("SMCProcessorAMD::getPCIService: unable to get IOPCIDevice on host system.\n");
         return false;
     }
     
-    IOLog("AMDCPUSupport::getPCIService: succeed!\n");
+    IOLog("SMCProcessorAMD::getPCIService: succeed!\n");
     fIOPCIDevice = service;
     
     return true;
@@ -121,7 +121,7 @@ bool SMCProcessorAMD::start(IOService *provider){
     
     bool success = IOService::start(provider);
     if(!success){
-        IOLog("AMDCPUSupport::start failed to start. :(\n");
+        IOLog("SMCProcessorAMD::start failed to start. :(\n");
         return false;
     }
     registerService();
@@ -133,12 +133,12 @@ bool SMCProcessorAMD::start(IOService *provider){
     uint32_t cpuid_ecx = 0;
     uint32_t cpuid_edx = 0;
     CPUInfo::getCpuid(0, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
-    IOLog("AMDCPUSupport::start got CPUID: %X %X %X %X\n", cpuid_eax, cpuid_ebx, cpuid_ecx, cpuid_edx);
+    IOLog("SMCProcessorAMD::start got CPUID: %X %X %X %X\n", cpuid_eax, cpuid_ebx, cpuid_ecx, cpuid_edx);
     
     if(cpuid_ebx != CPUInfo::signature_AMD_ebx
        || cpuid_ecx != CPUInfo::signature_AMD_ecx
        || cpuid_edx != CPUInfo::signature_AMD_edx){
-        IOLog("AMDCPUSupport::start no AMD signature detected, failing..\n");
+        IOLog("SMCProcessorAMD::start no AMD signature detected, failing..\n");
         
         return false;
     }
@@ -149,7 +149,7 @@ bool SMCProcessorAMD::start(IOService *provider){
     
     //Only 17h Family are supported offically by now.
     cpuSupportedByCurrentVersion = (cpuFamily == 0x17)? 1 : 0;
-    IOLog("AMDCPUSupport::start Family %02Xh, Model %02Xh\n", cpuFamily, cpuModel);
+    IOLog("SMCProcessorAMD::start Family %02Xh, Model %02Xh\n", cpuFamily, cpuModel);
     
     CPUInfo::getCpuid(0x80000005, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
     cpuCacheL1_perCore = (cpuid_ecx >> 24) + (cpuid_ecx >> 24);
@@ -158,7 +158,7 @@ bool SMCProcessorAMD::start(IOService *provider){
     CPUInfo::getCpuid(0x80000006, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
     cpuCacheL2_perCore = (cpuid_ecx >> 16);
     cpuCacheL3 = (cpuid_edx >> 18) * 512;
-    IOLog("AMDCPUSupport::start L1: %u, L2: %u, L3: %u\n",
+    IOLog("SMCProcessorAMD::start L1: %u, L2: %u, L3: %u\n",
           cpuCacheL1_perCore, cpuCacheL2_perCore, cpuCacheL3);
     
     
@@ -173,7 +173,7 @@ bool SMCProcessorAMD::start(IOService *provider){
     CPUInfo::getCpuid(0x80000004, 0, &cpuid_eax, &cpuid_ebx, &cpuid_ecx, &cpuid_edx);
     nameString[8] = cpuid_eax; nameString[9] = cpuid_ebx; nameString[10] = cpuid_ecx; nameString[11] = cpuid_edx;
     
-    IOLog("AMDCPUSupport::start Processor: %s))\n", (char*)nameString);
+    IOLog("SMCProcessorAMD::start Processor: %s))\n", (char*)nameString);
     
     //Check tctl temperature offset
     for(int i = 0; i < TCTL_OFFSET_TABLE_LEN; i++){
@@ -188,9 +188,9 @@ bool SMCProcessorAMD::start(IOService *provider){
     
     
     if(!CPUInfo::getCpuTopology(cpuTopology)){
-        IOLog("AMDCPUSupport::start unable to get CPU Topology.\n");
+        IOLog("SMCProcessorAMD::start unable to get CPU Topology.\n");
     }
-    IOLog("AMDCPUSupport::start got %hhu CPU(s): Physical Count: %hhu, Logical Count %hhu.\n",
+    IOLog("SMCProcessorAMD::start got %hhu CPU(s): Physical Count: %hhu, Logical Count %hhu.\n",
           cpuTopology.packageCount, cpuTopology.totalPhysical(), cpuTopology.totalLogical());
     
     totalNumberOfPhysicalCores = cpuTopology.totalPhysical();
@@ -216,9 +216,9 @@ bool SMCProcessorAMD::start(IOService *provider){
         provider->timerEventSource->setTimeoutMS(1000);
     });
         
-    IOLog("AMDCPUSupport::start trying to init PCI service...\n");
+    IOLog("SMCProcessorAMD::start trying to init PCI service...\n");
     if(!getPCIService()){
-        IOLog("AMDCPUSupport::start no PCI support found, failing...\n");
+        IOLog("SMCProcessorAMD::start no PCI support found, failing...\n");
         return false;
     }
     
@@ -228,14 +228,14 @@ bool SMCProcessorAMD::start(IOService *provider){
     workLoop->addEventSource(timerEventSource);
     timerEventSource->setTimeoutMS(1000);
     
-    IOLog("AMDCPUSupport::start registering VirtualSMC keys...\n");
+    IOLog("SMCProcessorAMD::start registering VirtualSMC keys...\n");
     setupKeysVsmc();
     
     return success;
 }
 
 void SMCProcessorAMD::stop(IOService *provider){
-    IOLog("AMDCPUSupport stopped, you have no more support :(\n");
+    IOLog("SMCProcessorAMD stopped, you have no more support :(\n");
     
     timerEventSource->cancelTimeout();
     
@@ -245,9 +245,9 @@ void SMCProcessorAMD::stop(IOService *provider){
 bool SMCProcessorAMD::read_msr(uint32_t addr, uint64_t *value){
     
     uint32_t lo, hi;
-//    IOLog("AMDCPUSupport lalala \n");
+//    IOLog("SMCProcessorAMD lalala \n");
     int err = rdmsr_carefully(addr, &lo, &hi);
-//    IOLog("AMDCPUSupport rdmsr_carefully %d\n", err);
+//    IOLog("SMCProcessorAMD rdmsr_carefully %d\n", err);
     
     if(!err) *value = lo | ((uint64_t)hi << 32);
     
@@ -268,9 +268,9 @@ void SMCProcessorAMD::updateClockSpeed(){
             
     uint64_t msr_value_buf = 0;
     bool err = !read_msr(kMSR_HARDWARE_PSTATE_STATUS, &msr_value_buf);
-    if(err) IOLog("AMDCPUSupport::updateClockSpeed: failed somewhere");
+    if(err) IOLog("SMCProcessorAMD::updateClockSpeed: failed somewhere");
             
-//    IOLog("AMDCPUSupport::updateClockSpeed: i am CPU %hhu, physical %hhu\n", package, physical);
+//    IOLog("SMCProcessorAMD::updateClockSpeed: i am CPU %hhu, physical %hhu\n", package, physical);
             
     MSR_HARDWARE_PSTATE_STATUS_perCore[physical] = msr_value_buf;
 }
@@ -296,7 +296,7 @@ void SMCProcessorAMD::updatePackageTemp(){
     
     
     PACKAGE_TEMPERATURE_perPackage[0] = t;
-//    IOLog("AMDCPUSupport::updatePackageTemp: read from pci device %d \n", (int)PACKAGE_TEMPERATURE_perPackage[0]);
+//    IOLog("SMCProcessorAMD::updatePackageTemp: read from pci device %d \n", (int)PACKAGE_TEMPERATURE_perPackage[0]);
 }
 
 void SMCProcessorAMD::updatePackageEnergy(){
@@ -317,8 +317,8 @@ void SMCProcessorAMD::updatePackageEnergy(){
     lastUpdateEnergyValue = energyValue;
     lastUpdateTime = time;
     
-//    IOLog("AMDCPUSupport::updatePackageEnergy: %d \n", (int)e);
-//    IOLog("AMDCPUSupport::updatePackageEnergy: %d la\n", (int)energyDelta);
+//    IOLog("SMCProcessorAMD::updatePackageEnergy: %d \n", (int)e);
+//    IOLog("SMCProcessorAMD::updatePackageEnergy: %d la\n", (int)energyDelta);
     
 }
 

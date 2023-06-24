@@ -12,7 +12,7 @@ OSDefineMetaClassAndStructors(SMCProcessorAMDUserClient, IOUserClient);
 
 bool SMCProcessorAMDUserClient::start(IOService *provider){
     
-    IOLog("AMDCPUSupportUserClient::start\n");
+    IOLog("SMCProcessorAMDUserClient::start\n");
     
     bool success = IOService::start(provider);
     
@@ -24,7 +24,7 @@ bool SMCProcessorAMDUserClient::start(IOService *provider){
 }
 
 void SMCProcessorAMDUserClient::stop(IOService *provider){
-    IOLog("AMDCPUSupportUserClient::stop\n");
+    IOLog("SMCProcessorAMDUserClient::stop\n");
     
     fProvider = nullptr;
     IOService::stop(provider);
@@ -41,7 +41,7 @@ uint64_t multiply_two_numbers(uint64_t number_one, uint64_t number_two){
 IOReturn SMCProcessorAMDUserClient::externalMethod(uint32_t selector, IOExternalMethodArguments *arguments,
                                                  IOExternalMethodDispatch *dispatch, OSObject *target, void *reference){
     
-    IOLog("AMDCPUSupportUserClient::externalMethod selector:%d\n", selector);
+    IOLog("SMCProcessorAMDUserClient::externalMethod selector:%d\n", selector);
     
     
     switch (selector) {
@@ -51,18 +51,18 @@ IOReturn SMCProcessorAMDUserClient::externalMethod(uint32_t selector, IOExternal
             arguments->scalarOutput[0] = r;
             arguments->scalarOutputCount = 1;
             
-            IOLog("AMDCPUSupportUserClient::multiply_two_numbers r:%llu\n", r);
+            IOLog("SMCProcessorAMDUserClient::multiply_two_numbers r:%llu\n", r);
             
             break;
         }
         case 1: {
             // read_msr
-//            IOLog("AMDCPUSupportUserClient::read_msr: got raw address %llu\n", arguments->scalarInput[0]);
+//            IOLog("SMCProcessorAMDUserClient::read_msr: got raw address %llu\n", arguments->scalarInput[0]);
             uint32_t msr_addr = (uint32_t)(arguments->scalarInput[0]);
             uint64_t msr_value_buf = 0;
             bool err = !fProvider->read_msr(msr_addr, &msr_value_buf);
             if(err){
-                IOLog("AMDCPUSupportUserClient::read_msr: failed at address %u\n", msr_addr);
+                IOLog("SMCProcessorAMDUserClient::read_msr: failed at address %u\n", msr_addr);
             } else {
                 arguments->scalarOutput[0] = msr_value_buf;
                 arguments->scalarOutputCount = 1;
@@ -101,7 +101,7 @@ IOReturn SMCProcessorAMDUserClient::externalMethod(uint32_t selector, IOExternal
         }
             
         default: {
-            IOLog("AMDCPUSupportUserClient::externalMethod: invalid method.\n");
+            IOLog("SMCProcessorAMDUserClient::externalMethod: invalid method.\n");
             break;
         }
     }
