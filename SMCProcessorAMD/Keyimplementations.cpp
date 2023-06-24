@@ -1,5 +1,5 @@
 //
-//  AMDCPUSupport
+//  SMCProcessorAMD
 //
 
 #include "KeyImplementations.hpp"
