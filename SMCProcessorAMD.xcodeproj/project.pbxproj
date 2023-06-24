@@ -307,7 +307,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library";
 				MARKETING_VERSION = 1.0.1;
 				MODULE_NAME = as.lorys89.SMCProcessorAMD;
-				MODULE_VERSION = 1.0.0;
+				MODULE_VERSION = 1.0.1;
 				OTHER_CPLUSPLUSFLAGS = "-Wno-inconsistent-missing-override";
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.lorys89.SMCProcessorAMD;
@@ -335,7 +335,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library";
 				MARKETING_VERSION = 1.0.1;
 				MODULE_NAME = as.lorys89.SMCProcessorAMD;
-				MODULE_VERSION = 1.0.0;
+				MODULE_VERSION = 1.0.1;
 				OTHER_CPLUSPLUSFLAGS = "-Wno-inconsistent-missing-override";
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.lorys89.SMCProcessorAMD;
