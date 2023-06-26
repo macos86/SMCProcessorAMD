@@ -17,6 +17,7 @@
 
 /* Begin PBXFileReference section */
 		776129DF2A4371FE003779C0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A37CAA882A49AA4F00A3C68A /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
 		B57D27F423F66AE7002BC699 /* SMCProcessorAMD.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCProcessorAMD.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57D27FB23F66AE7002BC699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B57D280123F66C8E002BC699 /* SMCProcessorAMD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMCProcessorAMD.cpp; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 			isa = PBXGroup;
 			children = (
 				776129DF2A4371FE003779C0 /* README.md */,
+				A37CAA882A49AA4F00A3C68A /* Changelog.md */,
 				B57D27F623F66AE7002BC699 /* SMCProcessorAMD */,
 				B57D27F523F66AE7002BC699 /* Products */,
 			);

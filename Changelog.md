@@ -1,6 +1,8 @@
 SMCProcessorAMD Changelog
 ======================
 
+#### v1.0.2
+
 #### v1.0.1
 - Code Fix
 - Support read cpu proximity temp
