@@ -20,8 +20,10 @@ VirtualSMC plugin for AMD CPU temperature
 - macOS Monterey
 - macOS Big Sur  
 - macOS Catalina  
+- macOS Mojave  
+- macOS High sierra  
 
-## Legacy systems not supported
+## Old systems not supported
 
 ## Credits
 - [Apple](https://www.apple.com) for macOS
