@@ -15,13 +15,15 @@ VirtualSMC plugin for AMD CPU temperature
 
 
 ## Supported Systems
-- macOS Sonoma
-- macOS Ventura
-- macOS Monterey
-- macOS Big Sur  
-- macOS Catalina  
+- macOS Sonoma       14.x.x     (MinKernel 23.0.0 - MaxKernel 23.99.99)
+- macOS Ventura      13.x.x     (MinKernel 22.0.0 - MaxKernel 22.99.99)
+- macOS Monterey     12.x.x     (MinKernel 21.0.0 - MaxKernel 21.99.99)
+- macOS Big Sur      11.x.x     (MinKernel 20.0.0 - MaxKernel 20.99.99)
+- macOS Catalina     10.15.x    (MinKernel 19.0.0 - MaxKernel 19.99.99)
+- macOS Mojave       10.14.x    (MinKernel 18.0.0 - MaxKernel 18.99.99)
+- macOS High Sierra  10.13.x    (MinKernel 17.0.0 - MaxKernel 17.99.99) 
 
-## Legacy systems not supported
+## Old systems not supported
 
 ## Credits
 - [Apple](https://www.apple.com) for macOS
