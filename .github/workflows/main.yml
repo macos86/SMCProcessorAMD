@@ -13,7 +13,11 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: macos-latest
+    # Pinned to macos-15: as of June 2026 "macos-latest" points to macOS 26,
+    # which only ships Xcode 26.x. acidanthera/ocbuild's ci-bootstrap.sh hardcodes
+    # Xcode 16.4.0, which is still preinstalled on macos-15 but no longer exists
+    # on macos-26 (hence "missing DEVELOPER_DIR path: /Applications/Xcode_16.4.0.app").
+    runs-on: macos-15
     env:
       JOB_TYPE: BUILD
     steps:
@@ -43,5 +47,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/*/*.zip
           tag: ${{ github.ref }}
-          file_glob: true     
+          file_glob: true  
     
