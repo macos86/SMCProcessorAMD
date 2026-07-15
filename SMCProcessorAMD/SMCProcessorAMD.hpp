@@ -109,6 +109,14 @@ class SMCProcessorAMD : public IOService {
     static constexpr SMC_KEY KeyTCxT(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'T'); }
     static constexpr SMC_KEY KeyTCxp(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'p'); }
     
+    /**
+     *  CPU effective frequency keys (MHz, encoded as SmcKeyTypeFloat).
+     *  KeyFCxE: per physical core clock speed ('F'req 'C'ore x 'E'ffective).
+     *  KeyFCPE: package-wide average clock speed across all physical cores.
+     */
+    static constexpr SMC_KEY KeyFCxE(size_t i) { return SMC_MAKE_IDENTIFIER('F','C',KeyIndexes[i],'E'); }
+    static constexpr SMC_KEY KeyFCPE = SMC_MAKE_IDENTIFIER('F','C','P','E');
+    
 public:
     virtual bool init(OSDictionary *dictionary = 0) override;
     virtual void free(void) override;
@@ -147,6 +155,10 @@ public:
      */
     uint64_t MSR_HARDWARE_PSTATE_STATUS_perCore[24] {};
     float PACKAGE_TEMPERATURE_perPackage[CPUInfo::MaxCpus];
+    
+    // Decoded CPU clock speed in MHz, derived from MSR_HARDWARE_PSTATE_STATUS_perCore
+    // inside updateClockSpeed(). Read by the FreqCore/FreqPackage VirtualSMC keys.
+    float clockSpeed_perCore[CPUInfo::MaxCpus] {};
     
     bool cpbSupported;
     

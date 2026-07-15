@@ -50,6 +50,21 @@ bool SMCProcessorAMD::setupKeysVsmc(){
     suc &= VirtualSMCAPI::addKey(KeyTCxT(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, 0)));
     suc &= VirtualSMCAPI::addKey(KeyTCxp(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, 0)));
      
+    // Cpu frequency (MHz): package average + one key per physical core, sourced
+    // from the P-state MSR decode done in updateClockSpeed(). Lets third-party
+    // monitoring apps (e.g. AppleMonitorCenter) read clock speed via VirtualSMC
+    // instead of the old AMD Power Gadget-style user client.
+    suc &= VirtualSMCAPI::addKey(KeyFCPE, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new FreqPackage(this, 0)));
+    
+    uint32_t freqCoreCount = totalNumberOfPhysicalCores > 0 ? totalNumberOfPhysicalCores : 1;
+    if (freqCoreCount > MaxIndexCount) {
+        IOLog("SMCProcessorAMD::setupKeysVsmc: physical core count %u exceeds %zu, clamping FCxE keys.\n", freqCoreCount, MaxIndexCount);
+        freqCoreCount = MaxIndexCount;
+    }
+    for (size_t core = 0; core < freqCoreCount; core++) {
+        suc &= VirtualSMCAPI::addKey(KeyFCxE(core), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0, new FreqCore(this, 0, core)));
+    }
+    
         if(!suc){
         IOLog("SMCProcessorAMD::setupKeysVsmc: VirtualSMCAPI::addKey returned false. \n");
     }
@@ -273,6 +288,25 @@ void SMCProcessorAMD::updateClockSpeed(){
 //    IOLog("SMCProcessorAMD::updateClockSpeed: i am CPU %hhu, physical %hhu\n", package, physical);
             
     MSR_HARDWARE_PSTATE_STATUS_perCore[physical] = msr_value_buf;
+    
+    // Decode MSRC001_0293 into an actual clock speed (MHz), same register/math
+    // AMD Power Gadget derives its per-core frequency readout from.
+    uint32_t eax = (uint32_t)(msr_value_buf & 0xffffffff);
+    
+    float clock;
+    if (cpuFamily >= 0x1A) {
+        // Family 1Ah onward (Zen 5): 12-bit CpuFid, no CpuDfsId. Frequency is CpuFid * 5 MHz.
+        float curCpuFid = (float)(eax & 0xfff);
+        clock = curCpuFid * 5.0f;
+    } else {
+        // MSRC001_0293: CurHwPstate [24:22], CurCpuVid [21:14], CurCpuDfsId [13:8], CurCpuFid [7:0]
+        float curCpuDfsId = (float)((eax >> 8) & 0x3f);
+        float curCpuFid = (float)(eax & 0xff);
+        clock = (curCpuDfsId == 0.0f) ? 0.0f : (curCpuFid / curCpuDfsId * 200.0f);
+    }
+    
+    if (physical < CPUInfo::MaxCpus)
+        clockSpeed_perCore[physical] = clock;
 }
 
 void SMCProcessorAMD::updatePackageTemp(){

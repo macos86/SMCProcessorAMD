@@ -28,4 +28,8 @@ class TempCore    : public AMDSupportVsmcValue { using AMDSupportVsmcValue::AMDS
 class EnergyPackage: public AMDSupportVsmcValue
 { using AMDSupportVsmcValue::AMDSupportVsmcValue; protected: SMC_RESULT readAccess() override; };
 
+// Effective CPU clock speed (MHz), sourced from SMCProcessorAMD::clockSpeed_perCore.
+class FreqCore    : public AMDSupportVsmcValue { using AMDSupportVsmcValue::AMDSupportVsmcValue; protected: SMC_RESULT readAccess() override; };
+class FreqPackage : public AMDSupportVsmcValue { using AMDSupportVsmcValue::AMDSupportVsmcValue; protected: SMC_RESULT readAccess() override; };
+
 #endif /* KeyImplementations_hpp */
